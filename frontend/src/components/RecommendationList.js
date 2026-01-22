@@ -1,26 +1,22 @@
-function RecommendationList({ data }) {
+const RecommendationList = ({ data }) => {
   return (
-    <div>
-      <h2>User: {data.handle}</h2>
-      <p>Rating: {data.rating}</p>
-      <p>Weak Tags: {data.weakTags.join(", ")}</p>
-
-      <ul>
-        {data.recommendations.map((p) => (
-          <li key={`${p.contestId}${p.index}`}>
-            <a
-              href={`https://codeforces.com/problemset/problem/${p.contestId}/${p.index}`}
-              target="_blank"
-              rel="noreferrer"
-            >
-              {p.name}
-            </a>{" "}
-            | Rating: {p.rating} | Tags: {p.tags.join(", ")}
-          </li>
-        ))}
-      </ul>
+    <div className="cards">
+      {data.recommendations.map(p => (
+        <div className="card" key={`${p.contestId}${p.index}`}>
+          <h3>{p.name}</h3>
+          <p>Rating: {p.rating}</p>
+          <p className="tags">{p.tags.join(", ")}</p>
+          <a
+            href={`https://codeforces.com/problemset/problem/${p.contestId}/${p.index}`}
+            target="_blank"
+            rel="noreferrer"
+          >
+            Solve →
+          </a>
+        </div>
+      ))}
     </div>
   );
-}
+};
 
 export default RecommendationList;

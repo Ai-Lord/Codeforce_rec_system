@@ -1,28 +1,38 @@
 import { useState } from "react";
-import { getRecommendations } from "./services/api";
+import Header from "./components/Header";
+import Loader from "./components/Loader";
 import RecommendationList from "./components/RecommendationList";
+import { getRecommendations } from "./services/api";
+import "./styles/theme.css";
+import "./styles/app.css";
 
 function App() {
   const [handle, setHandle] = useState("");
   const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const fetchData = async () => {
+    setLoading(true);
     const res = await getRecommendations(handle);
     setData(res);
+    setLoading(false);
   };
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h1>Codeforces Problem Recommender</h1>
+    <div>
+      <Header />
 
-      <input
-        placeholder="Enter Codeforces handle"
-        value={handle}
-        onChange={(e) => setHandle(e.target.value)}
-      />
-      <button onClick={fetchData}>Get Recommendations</button>
+      <div style={{ padding: "20px" }}>
+        <input
+          placeholder="Codeforces handle"
+          value={handle}
+          onChange={e => setHandle(e.target.value)}
+        />
+        <button onClick={fetchData}>Recommend</button>
+      </div>
 
-      {data && <RecommendationList data={data} />}
+      {loading && <Loader />}
+      {data && !loading && <RecommendationList data={data} />}
     </div>
   );
 }

@@ -1,0 +1,28 @@
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+.card {
+  background: var(--card-dark);
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  transition: transform 0.2s;
+}
+
+.light .card {
+  background: var(--card-light);
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: bold;
+}
